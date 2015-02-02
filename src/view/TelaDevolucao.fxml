@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControleDevolucao">
+   <children>
+      <Label layoutX="243.0" layoutY="41.0" prefHeight="17.0" prefWidth="114.0" text="Devoluções">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="84.0" prefHeight="19.0" prefWidth="150.0" text="Digite o nome do cliente">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNomeCliente" layoutX="47.0" layoutY="115.0" prefHeight="25.0" prefWidth="361.0" />
+      <Button fx:id="buttonPesquisar" layoutX="437.0" layoutY="115.0" mnemonicParsing="false" onAction="#pesquisar" prefHeight="25.0" prefWidth="122.0" text="Pesquisar" />
+      <TableView layoutX="47.0" layoutY="158.0" prefHeight="261.0" prefWidth="514.0">
+        <columns>
+          <TableColumn prefWidth="248.0" text="Nome do Cliente" />
+          <TableColumn prefWidth="265.0" text="Nome do Filme" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonVoltarDevolucao" layoutX="47.0" layoutY="443.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="122.0" text="Voltar" />
+      <Button layoutX="395.0" layoutY="443.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Realizar Devolução" />
+   </children>
+</Pane>

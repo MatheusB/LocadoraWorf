@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControleTelaInicial">
+   <children>
+      <VBox layoutX="16.0" layoutY="134.0" prefHeight="473.0" prefWidth="178.0" spacing="50.0">
+         <children>
+            <Button fx:id="buttonCadastrarCliente" mnemonicParsing="false" onAction="#cadastrarcliente" prefHeight="42.0" prefWidth="187.0" text="Cadastrar Cliente" />
+            <Button fx:id="buttonCadFilme" mnemonicParsing="false" onAction="#cadastrarFilme" prefHeight="42.0" prefWidth="187.0" text="Cadastrar Filme" />
+            <Button fx:id="buttonRealizarAluguel" mnemonicParsing="false" onAction="#realizarAluguel" prefHeight="42.0" prefWidth="185.0" text="Realizar Aluguel" />
+            <Button fx:id="buttonDevolucao" mnemonicParsing="false" onAction="#devolver" prefHeight="43.0" prefWidth="185.0" text="Devoluçao de FIlmes" />
+            <Button fx:id="buttonConsultarFilme" lineSpacing="20.0" mnemonicParsing="false" onAction="#consultar" prefHeight="44.0" prefWidth="178.0" text="Consultar Filme" />
+            <Button fx:id="buttonConsultarCliente" mnemonicParsing="false" onAction="#consultarCliente" prefHeight="43.0" prefWidth="178.0" text="Consultar Cliente" />
+         </children>
+      </VBox>
+      <Label layoutX="105.0" layoutY="70.0" prefHeight="35.0" prefWidth="191.0" text="do Zezinho">
+         <font>
+            <Font name="System Bold Italic" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="35.0" text="Locadora de Filmes">
+         <font>
+            <Font name="System Bold Italic" size="29.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="64.0" fitWidth="65.0" layoutX="239.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagens/perfil.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="65.0" layoutX="237.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagens/filmes.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="67.0" layoutX="240.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagens/alugar.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="51.0" layoutX="231.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagens/consultar.jpg" />
+         </image>
+      </ImageView>
+   </children>
+   <cursor>
+      <Cursor fx:constant="OPEN_HAND" />
+   </cursor>
+</Pane>

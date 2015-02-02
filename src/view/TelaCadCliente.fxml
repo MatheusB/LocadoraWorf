@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane fx:id="telaCadastroCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControleCadCliente">
+   <children>
+      <Label layoutX="21.0" layoutY="68.0" prefHeight="25.0" prefWidth="187.0" text="Digite o Nome do Cliente *" />
+      <Label layoutX="29.0" layoutY="29.0" prefHeight="15.0" prefWidth="297.0" text="      Tela de Cadastro" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNome" layoutX="19.0" layoutY="100.0" prefHeight="25.0" prefWidth="353.0" />
+      <Label layoutX="21.0" layoutY="156.0" prefHeight="15.0" prefWidth="218.0" text="Digite o Sobrenome do Cliente *" />
+      <TextField fx:id="txtSobrenome" layoutX="21.0" layoutY="178.0" prefHeight="25.0" prefWidth="353.0" />
+      <Label layoutX="21.0" layoutY="232.0" prefHeight="15.0" prefWidth="187.0" text="Digite o Email do Cliente" />
+      <TextField fx:id="txtEmail" layoutX="21.0" layoutY="263.0" prefHeight="25.0" prefWidth="353.0" />
+      <Label layoutX="21.0" layoutY="319.0" prefHeight="15.0" prefWidth="112.0" text="Digite a Rua *" />
+      <TextField fx:id="txtRua" layoutX="21.0" layoutY="350.0" prefHeight="25.0" prefWidth="353.0" />
+      <Label layoutX="21.0" layoutY="408.0" prefHeight="15.0" prefWidth="112.0" text="Digite o Bairro *" />
+      <TextField fx:id="txtBairro" layoutX="14.0" layoutY="439.0" prefHeight="25.0" prefWidth="197.0" />
+      <Label layoutX="21.0" layoutY="487.0" prefHeight="15.0" prefWidth="197.0" text="Digite o Numero da Casa *" />
+      <TextField fx:id="txtNumCasa" layoutX="218.0" layoutY="482.0" prefHeight="25.0" prefWidth="46.0" />
+      <HBox layoutX="49.0" layoutY="582.0" spacing="50.0">
+         <children>
+            <Button fx:id="buttonVoltar" layoutX="21.0" layoutY="540.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="25.0" prefWidth="107.0" text="Voltar" />
+            <Button fx:id="buttonCadastrar" layoutX="252.0" layoutY="594.0" mnemonicParsing="false" onAction="#cadastrarCliente" prefHeight="25.0" prefWidth="120.0" text="Cadastrar" />
+         </children>
+      </HBox>
+      <Label layoutX="21.0" layoutY="535.0" prefHeight="15.0" prefWidth="152.0" text="* campos obrigatórios" />
+   </children>
+   <padding>
+      <Insets left="1.0" top="1.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets left="1.0" top="1.0" />
+   </opaqueInsets>
+</Pane>
