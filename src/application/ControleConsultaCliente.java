@@ -56,13 +56,17 @@ public class ControleConsultaCliente {
     
     @FXML
     void Deletar(ActionEvent event) {
-    	Cliente c = tabelaConsultaCliente.getSelectionModel().getSelectedItem();
-    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse cliente?");
-    	if (del == JOptionPane.YES_OPTION){
-        	conecta.executaSQL("DELETE FROM clientes WHERE id_cliente ='"+c.getId()+"'");
-        	txtConsultaNome.setText("");
-        	JOptionPane.showMessageDialog(null,"Cliente apagado com sucesso");
-        	clientedados.clear();}
+    	if (tabelaConsultaCliente.getSelectionModel().getSelectedItem() != null ){
+	    	Cliente c = tabelaConsultaCliente.getSelectionModel().getSelectedItem();
+	    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse cliente?");
+    	
+	    	if (del == JOptionPane.YES_OPTION){
+	        	conecta.executaSQL("DELETE FROM clientes WHERE id_cliente ='"+c.getId()+"'");
+	        	txtConsultaNome.setText("");
+	        	JOptionPane.showMessageDialog(null,"Cliente apagado com sucesso");
+	        	pesquisarCliente(event);
+        	}
+    	}
     }
     
     @FXML
@@ -73,6 +77,7 @@ public class ControleConsultaCliente {
     
     @FXML
     void pesquisarCliente(ActionEvent event) {
+    		clientedados.clear();
     		String pesquisa = txtConsultaNome.getText();
     		try {
     			conecta.conexao();

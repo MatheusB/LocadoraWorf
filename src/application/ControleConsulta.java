@@ -58,16 +58,15 @@ public class ControleConsulta {
     
     @FXML
     void deletarFilme(ActionEvent event) {
-    	Filmes f = tabelaCon.getSelectionModel().getSelectedItem();
-    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse filme?");
-    	if (del == JOptionPane.YES_OPTION){
-        	conecta.executaSQL("DELETE FROM filmes WHERE id_filme ='"+f.getIdFilmes()+"'");
-        	txtConsultaFilme.setText("");
-        	JOptionPane.showMessageDialog(null,"Filme apagado com sucesso");
-        	filmedados.clear();
-    	} else {
-        	filmedados.clear();
-        	txtConsultaFilme.setText("");
+    	if (tabelaCon.getSelectionModel().getSelectedItem() != null ){
+	    	Filmes f = tabelaCon.getSelectionModel().getSelectedItem();
+	    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse filme?");
+	    	if (del == JOptionPane.YES_OPTION){
+	        	conecta.executaSQL("DELETE FROM filmes WHERE id_filme ='"+f.getIdFilmes()+"'");
+	        	txtConsultaFilme.setText("");
+	        	JOptionPane.showMessageDialog(null,"Filme apagado com sucesso");
+	        	pesquisarFilme(event);
+	    	} 
     	}
     }
 
@@ -85,15 +84,15 @@ public class ControleConsulta {
     
     @FXML
     void pesquisarFilme(ActionEvent event) {
+    	filmedados.clear();
     	String pesquisa = txtConsultaFilme.getText();
-    	try {
+			try {
 			conecta.conexao();
 			conecta.executaSQL("select * from filmes");
 			int cont = 0 ;
 			while(conecta.rs.next()){
 				if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
 					filmedados.add(new Filmes(String.valueOf(conecta.rs.getInt("id_filme")),conecta.rs.getString("nome_filme"),conecta.rs.getString("genero_filme"), conecta.rs.getString("preco_filme")));
-	
 					colunaCodigo.setCellValueFactory(new PropertyValueFactory<Filmes, String>("idFilmes"));
 					colunaNome.setCellValueFactory(new PropertyValueFactory<Filmes, String>("nomeFilmes"));
 					colunaGenero.setCellValueFactory(new PropertyValueFactory<Filmes, String>("generoFilmes"));
@@ -102,12 +101,12 @@ public class ControleConsulta {
 					cont++;
 				}
 			}if (cont == 0) {
-				JOptionPane.showMessageDialog(null,pesquisa + " não encontrado!");
+				JOptionPane.showMessageDialog(null, txtConsultaFilme.getText()+" nao encontrado!");
 			}
-			
-			
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
-		}
+			}
+			catch (Exception ex) {
+				JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
+			}
+    	
     }
 }
