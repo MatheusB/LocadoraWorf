@@ -15,7 +15,7 @@ public class ConectaBanco {
 	private String driver = "org.postgresql.Driver";
 	private String caminho = "jdbc:postgresql://localhost:5432/locadora";
 	private String usuario = "postgres";
-	private String senha = "qwerty";
+	private String senha = "hl9255";
 	public Connection conn;	//conexão com o banco de dados
 
 	public void conexao(){	//método responsável por realizar a conexão com o banco
