@@ -60,15 +60,15 @@ public class ControleCadCliente {
     @FXML
     void cadastrarCliente(ActionEvent event){
     	if (txtNome.getText().length()==0){
-    		JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    		JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     	}else if (txtSobrenome.getText().length()==0){
-    		JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    		JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     } else if(txtRua.getText().length()==0){
-    	JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    	JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     }else if (txtBairro.getText().length()==0){
-    	JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    	JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     } else if (txtNumCasa.getText().length()==0){
-    	JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    	JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     }else
     	try {
     	conecta.conexao();

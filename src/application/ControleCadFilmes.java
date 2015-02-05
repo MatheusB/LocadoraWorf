@@ -49,13 +49,13 @@ public class ControleCadFilmes {
     @FXML
     void cadastrarFilme(ActionEvent event) {
     	if (txtfilmeNome.getText().length()==0){
-    		JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    		JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     	}else if (txtgeneroNome.getText().length()==0){
-    		JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    		JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     } else if(txtClassificacao.getText().length()==0){
-    	JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    	JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     }else if (txtduracao.getText().length()==0){
-    	JOptionPane.showMessageDialog(null,"Ã‰ preciso preencher todos os campos obrigatÃ³rios");
+    	JOptionPane.showMessageDialog(null,"É preciso preencher todos os campos obrigatórios");
     }else
     	try {
         	conecta.conexao();
@@ -64,13 +64,13 @@ public class ControleCadFilmes {
         	pst.setString(2, txtgeneroNome.getText());
         	pst.setString(3, txtClassificacao.getText());
         	pst.setString(4, txtduracao.getText());
-        	pst.setString(5, txtSinopse.getText());
-        	pst.setString(6, txtPreco.getText());
+        	pst.setString(5, txtPreco.getText());
+        	pst.setString(6, txtSinopse.getText());
         	pst.executeUpdate();
+        	JOptionPane.showMessageDialog(null,"Cadastro Realizado com Sucesso");
         	} catch (SQLException ex){
         		JOptionPane.showMessageDialog(null,"Erro ao cadastrar"+ex);
         	}
-    	JOptionPane.showMessageDialog(null,"Cadastro Realizado com Sucesso");
     	txtfilmeNome.setText("");
     	txtgeneroNome.setText("");
     	txtClassificacao.setText("");

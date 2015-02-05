@@ -26,7 +26,7 @@ public class Main extends Application {
 	
 	}
 
-	// Chamada da funÃ§Ã£o que inicializa a tela
+	// Chamada da funçãoo que inicializa a tela
 	public void iniciarTela(String tela){
 		try{
 			FXMLLoader loader = new FXMLLoader();

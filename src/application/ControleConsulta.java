@@ -18,11 +18,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ControleConsulta {
 	ConectaBanco conecta = new ConectaBanco();
 	Main main = new Main();
+	
+	private ObservableList<Filmes> filmedados = FXCollections.observableArrayList();
+	
+	int del;
+	    
     @FXML
     private Button buttonVoltarConsulta;
-   
+    
     @FXML
-    private TableView<ConectaBanco> tabelaCon;
+    private Button buttonLimparFilme;
+    
+    @FXML
+    private TableView<Filmes> tabelaCon;
     
     @FXML
     private Button buttonPesquisarFilme;
@@ -31,19 +39,37 @@ public class ControleConsulta {
     private TextField txtConsultaFilme;
 
     @FXML
-    private TableColumn<ConectaBanco, String> colunaCodigo;
+    private TableColumn<Filmes, String> colunaCodigo;
 
     @FXML
-    private TableColumn<ConectaBanco, String> colunaNome;
+    private TableColumn<Filmes, String> colunaNome;
 
     @FXML
-    private TableColumn<ConectaBanco, String> colunaGenero;
+    private TableColumn<Filmes, String> colunaGenero;
     
     @FXML
-    private TableColumn<ConectaBanco, String> colunaPreco;
+    private TableColumn<Filmes, String> colunaPreco;
     
     @FXML
     private TextField testeCon;
+    
+    @FXML
+    private Button buttonDeletarFIlme;
+    
+    @FXML
+    void deletarFilme(ActionEvent event) {
+    	Filmes f = tabelaCon.getSelectionModel().getSelectedItem();
+    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse filme?");
+    	if (del == JOptionPane.YES_OPTION){
+        	conecta.executaSQL("DELETE FROM filmes WHERE id_filme ='"+f.getIdFilmes()+"'");
+        	txtConsultaFilme.setText("");
+        	JOptionPane.showMessageDialog(null,"Filme apagado com sucesso");
+        	filmedados.clear();
+    	} else {
+        	filmedados.clear();
+        	txtConsultaFilme.setText("");
+    	}
+    }
 
     @FXML
     void voltarConsulta(ActionEvent event) {
@@ -52,20 +78,36 @@ public class ControleConsulta {
     } 
     
     @FXML
-    void pesquisarFilme(ActionEvent event) {
-     	
-    	try {
-    		conecta.conexao();
-    		conecta.executaSQL("select * from filmes");
-			conecta.rs.last();
-    		colunaCodigo.setText(String.valueOf(conecta.rs.getInt("id_filme")));
-    		colunaNome.setText(conecta.rs.getString("nome_filme"));
-    		colunaGenero.setText(conecta.rs.getString("genero_filme"));
-    		colunaPreco.setCellValueFactory(new PropertyValueFactory<ConectaBanco, String>(conecta.rs.getString("preco_filme")));
-//			colunaPreco.setText(conecta.rs.getString("preco_filme"));
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
-		
+    void limparFilme(ActionEvent event) {
+    	filmedados.clear();
+    	txtConsultaFilme.setText("");
     }
+    
+    @FXML
+    void pesquisarFilme(ActionEvent event) {
+    	String pesquisa = txtConsultaFilme.getText();
+    	try {
+			conecta.conexao();
+			conecta.executaSQL("select * from filmes");
+			int cont = 0 ;
+			while(conecta.rs.next()){
+				if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
+					filmedados.add(new Filmes(String.valueOf(conecta.rs.getInt("id_filme")),conecta.rs.getString("nome_filme"),conecta.rs.getString("genero_filme"), conecta.rs.getString("preco_filme")));
+	
+					colunaCodigo.setCellValueFactory(new PropertyValueFactory<Filmes, String>("idFilmes"));
+					colunaNome.setCellValueFactory(new PropertyValueFactory<Filmes, String>("nomeFilmes"));
+					colunaGenero.setCellValueFactory(new PropertyValueFactory<Filmes, String>("generoFilmes"));
+					colunaPreco.setCellValueFactory(new PropertyValueFactory<Filmes, String>("precoFilmes"));
+					tabelaCon.setItems(filmedados);
+					cont++;
+				}
+			}if (cont == 0) {
+				JOptionPane.showMessageDialog(null,pesquisa + " não encontrado!");
+			}
+			
+			
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
+		}
     }
 }
