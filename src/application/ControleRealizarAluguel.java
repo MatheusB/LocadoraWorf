@@ -13,9 +13,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import application.Cliente;
+import application.TelaDois;
 
 public class ControleRealizarAluguel {
+	TelaDois tela = new TelaDois();
 	Main main = new Main();
 	ConectaBanco conecta = new ConectaBanco();
 	private ObservableList<Alugar> alugardados = FXCollections.observableArrayList();
@@ -103,9 +106,6 @@ public class ControleRealizarAluguel {
     
     @FXML
     void verCliente(ActionEvent event) {
-//    	main.iniciarTela("/view/TelaVerClientes.fxml");
+    	new TelaDois().start(new Stage());
     }
 }
-
-    
-

@@ -1,16 +1,25 @@
 package application;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import utilitades.ConectaBanco;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import application.TelaDois;
 
-public class ControleVerCliente {
-	Main main = new Main();
+public class ControleVerCliente implements Initializable{
+	TelaDois tela = new TelaDois();
 	ConectaBanco conecta = new ConectaBanco();
 	private ObservableList<VerCliente> verdados = FXCollections.observableArrayList();
 	
@@ -29,15 +38,36 @@ public class ControleVerCliente {
     @FXML
     private TableColumn<VerCliente, String> colSobreCliente;
 
+	
     @FXML
     void voltar(ActionEvent event) {
-
+    	tela.palco2.close();
     }
 
     @FXML
     void adicionar(ActionEvent event) {
 
     }
+	public void mostrar(){
+    	try{
+		conecta.conexao();
+		conecta.executaSQL("SELECT * FROM clientes");
+		while(conecta.rs.next()){
+			verdados.add(new VerCliente(conecta.rs.getString("nome_cliente"), conecta.rs.getString("sobre_cliente")));
+			colNomeCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("nomeCliente"));
+			colSobreCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("sobreCliente"));
+			tabelaVer.setItems(verdados);		
+		}
+	} catch (Exception ex){
+		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
+	}
+	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		mostrar();
+		
+	}
+	
 }
 
