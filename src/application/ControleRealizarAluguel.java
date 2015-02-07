@@ -1,5 +1,8 @@
 package application;
+import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -8,7 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -17,12 +22,18 @@ import javafx.stage.Stage;
 import application.Cliente;
 import application.TelaDois;
 
-public class ControleRealizarAluguel {
+public class ControleRealizarAluguel implements Initializable{
 	TelaDois tela = new TelaDois();
 	Main main = new Main();
 	ConectaBanco conecta = new ConectaBanco();
 	private ObservableList<Alugar> alugardados = FXCollections.observableArrayList();
+	private ObservableList<Alugar> realizar = FXCollections.observableArrayList();
+	String nomeFilme;
+	String precoFilme;
+	float soma;
+	int idfilmeFK;
 	int del;
+	static String dado;
 
     @FXML
     private TextField txtFilme;
@@ -35,6 +46,9 @@ public class ControleRealizarAluguel {
 
     @FXML
     private Button buttonVerFIlme;
+    
+    @FXML
+    private Label lblTotalPreco;
 
     @FXML
     private TableColumn<Alugar, String> colVerFilme;
@@ -68,7 +82,28 @@ public class ControleRealizarAluguel {
     
     @FXML
     void adicionar(ActionEvent event) {
-    	
+    	if (tabelaVerFilme.getSelectionModel().getSelectedItem() != null ){
+    		Alugar c = tabelaVerFilme.getSelectionModel().getSelectedItem();
+    		nomeFilme = c.getNomeFilmes();
+    		precoFilme = c.getPrecoFilmes();
+//    		float preco = Float.parseFloat(precoFilme);
+    	}
+    	try{
+    		conecta.conexao();
+    		conecta.executaSQL("SELECT * FROM filmes");
+    		while(conecta.rs.next()){
+    			if (conecta.rs.getString("nome_filme").contains(nomeFilme)) {
+    				realizar.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getString("preco_filme")));
+    				colFilme.setCellValueFactory(new PropertyValueFactory<Alugar, String>("nomeFilmes"));
+    				colPreco.setCellValueFactory(new PropertyValueFactory<Alugar, String>("precoFilmes"));
+    				tabelaAlugarFilme.setItems(realizar);
+    				lblTotalPreco.setText(precoFilme);
+    	    		
+    			}
+    		}
+    	} catch (Exception ex){
+    		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
+    	}
     }
     
     @FXML
@@ -91,7 +126,7 @@ public class ControleRealizarAluguel {
     	String pesquisa = txtFilme.getText();
     	try{
     		conecta.conexao();
-    		conecta.executaSQL("SELECT * FROM clientes, filmes");
+    		conecta.executaSQL("SELECT * FROM filmes");
     		while(conecta.rs.next()){
     			if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
     				alugardados.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getString("preco_filme")));
@@ -108,7 +143,8 @@ public class ControleRealizarAluguel {
     void verCliente(ActionEvent event) {
     	new TelaDois().start(new Stage());
     }
-    public void mostrar(){
-    	txtCliente.setText("teste");
-    }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		txtCliente.setText(dado);
+	}
 }

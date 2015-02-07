@@ -23,9 +23,10 @@ import application.TelaDois;
 public class ControleVerCliente implements Initializable{
 	TelaDois tela = new TelaDois();
 	ControleRealizarAluguel novo = new ControleRealizarAluguel();
+	Main main = new Main();
 	ConectaBanco conecta = new ConectaBanco();
 	static String dado;
-	static int id_clienteFK;
+	static int idclienteFK;
 	private ObservableList<VerCliente> verdados = FXCollections.observableArrayList();
 	
     @FXML
@@ -54,17 +55,12 @@ public class ControleVerCliente implements Initializable{
     	if (tabelaVer.getSelectionModel().getSelectedItem() != null ){
     		VerCliente c = tabelaVer.getSelectionModel().getSelectedItem();
     		dado = c.getNomeCliente();
-    		try {
-    	    	conecta.conexao();
-    	    	PreparedStatement pst = conecta.conn.prepareStatement("insert into alugueis (id_cliente) values(?)");
-    	    	pst.setInt(1, id_clienteFK);
-    	    	pst.executeUpdate();
-    		} catch (SQLException ex){
-        		JOptionPane.showMessageDialog(null,"Erro ao adicionar"+ex);    			
-    		}
-    	}
-//    	novo.mostrar();
+    	ControleRealizarAluguel.dado = dado;
+    	main.palco.close();
+    	main.iniciarTela("/view/TelaRealizarAluguel.fxml");
     	tela.palco2.close();
+    	}
+    	
 
     }
 	public void mostrar(){
@@ -72,7 +68,7 @@ public class ControleVerCliente implements Initializable{
 		conecta.conexao();
 		conecta.executaSQL("SELECT * FROM clientes");
 		while(conecta.rs.next()){
-			id_clienteFK = conecta.rs.getInt("id_cliente");
+			idclienteFK = conecta.rs.getInt("id_cliente");	
 			verdados.add(new VerCliente(conecta.rs.getString("nome_cliente"), conecta.rs.getString("sobre_cliente")));
 			colNomeCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("nomeCliente"));
 			colSobreCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("sobreCliente"));

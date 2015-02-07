@@ -17,7 +17,7 @@
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="458.0" layoutY="411.0" prefHeight="15.0" prefWidth="65.0">
+      <Label fx:id="lblTotalPreco" layoutX="458.0" layoutY="411.0" prefHeight="15.0" prefWidth="65.0">
          <font>
             <Font size="15.0" />
          </font>

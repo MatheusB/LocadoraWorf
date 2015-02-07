@@ -62,8 +62,8 @@ public class ControleCadFilmes {
         	PreparedStatement pst = conecta.conn.prepareStatement("insert into filmes (nome_filme, genero_filme, duracao_filme, classificacao_filme, preco_filme, sinopse_filme) values(?,?,?,?,?,?)");
         	pst.setString(1, txtfilmeNome.getText());
         	pst.setString(2, txtgeneroNome.getText());
-        	pst.setString(3, txtClassificacao.getText());
-        	pst.setString(4, txtduracao.getText());
+        	pst.setString(3, txtduracao.getText());
+        	pst.setString(4, txtClassificacao.getText());
         	pst.setString(5, txtPreco.getText());
         	pst.setString(6, txtSinopse.getText());
         	pst.executeUpdate();
