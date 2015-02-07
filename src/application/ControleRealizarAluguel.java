@@ -108,4 +108,7 @@ public class ControleRealizarAluguel {
     void verCliente(ActionEvent event) {
     	new TelaDois().start(new Stage());
     }
+    public void mostrar(){
+    	txtCliente.setText("teste");
+    }
 }
