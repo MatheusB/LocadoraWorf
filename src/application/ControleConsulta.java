@@ -92,7 +92,7 @@ public class ControleConsulta {
 			int cont = 0 ;
 			while(conecta.rs.next()){
 				if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
-					filmedados.add(new Filmes(String.valueOf(conecta.rs.getInt("id_filme")),conecta.rs.getString("nome_filme"),conecta.rs.getString("genero_filme"), conecta.rs.getString("preco_filme")));
+					filmedados.add(new Filmes(String.valueOf(conecta.rs.getInt("id_filme")),conecta.rs.getString("nome_filme"),conecta.rs.getString("genero_filme"), conecta.rs.getFloat("preco_filme")));
 					colunaCodigo.setCellValueFactory(new PropertyValueFactory<Filmes, String>("idFilmes"));
 					colunaNome.setCellValueFactory(new PropertyValueFactory<Filmes, String>("nomeFilmes"));
 					colunaGenero.setCellValueFactory(new PropertyValueFactory<Filmes, String>("generoFilmes"));

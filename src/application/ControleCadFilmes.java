@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import utilitades.ConectaBanco;
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,7 +65,7 @@ public class ControleCadFilmes {
         	pst.setString(2, txtgeneroNome.getText());
         	pst.setString(3, txtduracao.getText());
         	pst.setString(4, txtClassificacao.getText());
-        	pst.setString(5, txtPreco.getText());
+        	pst.setFloat(5, Float.parseFloat(txtPreco.getText()));
         	pst.setString(6, txtSinopse.getText());
         	pst.executeUpdate();
         	JOptionPane.showMessageDialog(null,"Cadastro Realizado com Sucesso");

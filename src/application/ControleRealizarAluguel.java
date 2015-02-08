@@ -29,8 +29,8 @@ public class ControleRealizarAluguel implements Initializable{
 	private ObservableList<Alugar> alugardados = FXCollections.observableArrayList();
 	private ObservableList<Alugar> realizar = FXCollections.observableArrayList();
 	String nomeFilme;
-	String precoFilme;
-	float soma;
+	float precoFilme;
+	String soma;
 	int idfilmeFK;
 	int del;
 	static String dado;
@@ -86,18 +86,18 @@ public class ControleRealizarAluguel implements Initializable{
     		Alugar c = tabelaVerFilme.getSelectionModel().getSelectedItem();
     		nomeFilme = c.getNomeFilmes();
     		precoFilme = c.getPrecoFilmes();
-//    		float preco = Float.parseFloat(precoFilme);
     	}
     	try{
     		conecta.conexao();
     		conecta.executaSQL("SELECT * FROM filmes");
     		while(conecta.rs.next()){
     			if (conecta.rs.getString("nome_filme").contains(nomeFilme)) {
-    				realizar.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getString("preco_filme")));
+    				realizar.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getFloat("preco_filme")));
     				colFilme.setCellValueFactory(new PropertyValueFactory<Alugar, String>("nomeFilmes"));
     				colPreco.setCellValueFactory(new PropertyValueFactory<Alugar, String>("precoFilmes"));
     				tabelaAlugarFilme.setItems(realizar);
-    				lblTotalPreco.setText(precoFilme);
+    				String soma = String.valueOf(precoFilme);
+    				lblTotalPreco.setText(soma);
     	    		
     			}
     		}
@@ -108,16 +108,9 @@ public class ControleRealizarAluguel implements Initializable{
     
     @FXML
     void removerLista(ActionEvent event){
-//    	if (tabelaAlugar.getSelectionModel().getSelectedItem() != null ){
-//	    	Alugar c = tabelaAlugar.getSelectionModel().getSelectedItem();
-//	    	del = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse cliente?");
-//    	
-//	    	if (del == JOptionPane.YES_OPTION){
-//	        	conecta.executaSQL("DELETE FROM alugueis WHERE id_cliente ='"+c.getNomeFilmes()+"'");
-//	        	JOptionPane.showMessageDialog(null,"Cliente apagado com sucesso");
-//	        	
-//        	}
-//    	}
+    	if (tabelaAlugarFilme.getSelectionModel().getSelectedItem() != null ){
+    		Alugar c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
+    	}
     }
     
     @FXML
@@ -129,7 +122,7 @@ public class ControleRealizarAluguel implements Initializable{
     		conecta.executaSQL("SELECT * FROM filmes");
     		while(conecta.rs.next()){
     			if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
-    				alugardados.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getString("preco_filme")));
+    				alugardados.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getFloat("preco_filme")));
     				colVerFilme.setCellValueFactory(new PropertyValueFactory<Alugar, String>("nomeFilmes"));
     				tabelaVerFilme.setItems(alugardados);
     			}
