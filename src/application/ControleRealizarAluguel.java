@@ -30,7 +30,7 @@ public class ControleRealizarAluguel implements Initializable{
 	private ObservableList<Alugar> realizar = FXCollections.observableArrayList();
 	String nomeFilme;
 	float precoFilme;
-	String soma;
+	float soma = 0;
 	int idfilmeFK;
 	int del;
 	static String dado;
@@ -86,6 +86,7 @@ public class ControleRealizarAluguel implements Initializable{
     		Alugar c = tabelaVerFilme.getSelectionModel().getSelectedItem();
     		nomeFilme = c.getNomeFilmes();
     		precoFilme = c.getPrecoFilmes();
+    		soma = soma + precoFilme;
     	}
     	try{
     		conecta.conexao();
@@ -96,21 +97,27 @@ public class ControleRealizarAluguel implements Initializable{
     				colFilme.setCellValueFactory(new PropertyValueFactory<Alugar, String>("nomeFilmes"));
     				colPreco.setCellValueFactory(new PropertyValueFactory<Alugar, String>("precoFilmes"));
     				tabelaAlugarFilme.setItems(realizar);
-    				String soma = String.valueOf(precoFilme);
-    				lblTotalPreco.setText(soma);
+    				
     	    		
     			}
     		}
     	} catch (Exception ex){
     		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
     	}
+    	String totalpagar =String.valueOf(soma);
+    	lblTotalPreco.setText(totalpagar);
     }
     
     @FXML
     void removerLista(ActionEvent event){
     	if (tabelaAlugarFilme.getSelectionModel().getSelectedItem() != null ){
-    		Alugar c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
+	    	Alugar c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
+    		nomeFilme = c.getNomeFilmes();
+	    	precoFilme = c.getPrecoFilmes();
+
+
     	}
+
     }
     
     @FXML
