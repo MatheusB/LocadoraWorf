@@ -35,6 +35,7 @@ public class ControleRealizarAluguel implements Initializable{
 	int del;
 	static String dado;
 
+
     @FXML
     private TextField txtFilme;
 
@@ -112,8 +113,19 @@ public class ControleRealizarAluguel implements Initializable{
     void removerLista(ActionEvent event){
     	if (tabelaAlugarFilme.getSelectionModel().getSelectedItem() != null ){
 	    	Alugar c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
-    		nomeFilme = c.getNomeFilmes();
+	    	System.out.println("Oi");
+	    	int remo; 
 	    	precoFilme = c.getPrecoFilmes();
+	    	remo = JOptionPane.showConfirmDialog(null, "Deseja realmente remover esse filme?");
+	    	if (remo == JOptionPane.YES_OPTION){
+	        	conecta.executaSQL("DELETE FROM alugar WHERE nome_filme ='"+c.getNomeFilmes()+"'");
+	        	JOptionPane.showMessageDialog(null,"Filme removido com sucesso");
+	        	realizar.clear();
+	    		soma = soma - precoFilme;
+	        	
+	    	} 
+	    	String totalpagar =String.valueOf(soma);
+	    	lblTotalPreco.setText(totalpagar);
 
 
     	}
