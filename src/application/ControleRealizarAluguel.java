@@ -27,16 +27,27 @@ public class ControleRealizarAluguel implements Initializable{
 	Main main = new Main();
 	ConectaBanco conecta = new ConectaBanco();
 	private ObservableList<Alugar> alugardados = FXCollections.observableArrayList();
-	private ObservableList<Alugar> realizar = FXCollections.observableArrayList();
+	private ObservableList<RealizarAluguel> realizar = FXCollections.observableArrayList();
 	String nomeFilme;
 	float precoFilme;
 	float soma = 0;
 	int idfilmeFK;
 	int del;
 	static String dado;
+	static String idCliente;
+
 
     @FXML
     private TextField txtFilme;
+    
+    @FXML
+    private TableColumn<RealizarAluguel, String> colCodFilme;
+    
+    @FXML
+    private Label lblCodCliente;
+
+    @FXML
+    private Button buttonAlugar;
 
     @FXML
     private Button buttonVerCliente;
@@ -63,23 +74,25 @@ public class ControleRealizarAluguel implements Initializable{
     private TextField txtCliente;
 
     @FXML
-    private TableView<Alugar> tabelaAlugarFilme;
+    private TableView<RealizarAluguel> tabelaAlugarFilme;
 
     @FXML
-    private TableColumn<Alugar, String> colFilme;
+    private TableColumn<RealizarAluguel, String> colFilme;
 
     @FXML
     private Button buttonvoltar;
 
     @FXML
-    private TableColumn<Alugar, String> colPreco;
-
+    private TableColumn<RealizarAluguel, String> colPreco;
+    
+    //VOLTAR
     @FXML
     void voltar(ActionEvent event) {
+    	txtCliente.setText("");
     	main.palco.close();
     	main.iniciarTela("/view/TelaInicial.fxml");    	
     }
-    
+    //ADICIONAR FILME A LISTA
     @FXML
     void adicionar(ActionEvent event) {
     	if (tabelaVerFilme.getSelectionModel().getSelectedItem() != null ){
@@ -93,12 +106,11 @@ public class ControleRealizarAluguel implements Initializable{
     		conecta.executaSQL("SELECT * FROM filmes");
     		while(conecta.rs.next()){
     			if (conecta.rs.getString("nome_filme").contains(nomeFilme)) {
-    				realizar.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getFloat("preco_filme")));
-    				colFilme.setCellValueFactory(new PropertyValueFactory<Alugar, String>("nomeFilmes"));
-    				colPreco.setCellValueFactory(new PropertyValueFactory<Alugar, String>("precoFilmes"));
-    				tabelaAlugarFilme.setItems(realizar);
-    				
-    	    		
+    				realizar.add(new RealizarAluguel(String.valueOf(conecta.rs.getInt("id_filme")), conecta.rs.getString("nome_filme"), conecta.rs.getFloat("preco_filme")));
+    				colCodFilme.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("idFilme"));
+    				colFilme.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("nomeFilmes"));
+    				colPreco.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("precoFilmes"));
+    				tabelaAlugarFilme.setItems(realizar); 		
     			}
     		}
     	} catch (Exception ex){
@@ -107,19 +119,24 @@ public class ControleRealizarAluguel implements Initializable{
     	String totalpagar =String.valueOf(soma);
     	lblTotalPreco.setText(totalpagar);
     }
-    
+    //REMOVER ALGUM FILME DA LISTA 
     @FXML
     void removerLista(ActionEvent event){
     	if (tabelaAlugarFilme.getSelectionModel().getSelectedItem() != null ){
-	    	Alugar c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
-    		nomeFilme = c.getNomeFilmes();
+	    	RealizarAluguel c = tabelaAlugarFilme.getSelectionModel().getSelectedItem();
+	    	int remo; 
 	    	precoFilme = c.getPrecoFilmes();
-
-
+	    	remo = JOptionPane.showConfirmDialog(null, "Deseja realmente remover esse filme?");
+	    	if (remo == JOptionPane.YES_OPTION){
+	        	realizar.remove(c);
+	    		soma = soma - precoFilme;        	
+	    	} 
+	    	String totalpagar =String.valueOf(soma);
+	    	lblTotalPreco.setText(totalpagar);
     	}
 
     }
-    
+    //VERIFICAR OS FILMES
     @FXML
     void verFilme(ActionEvent event) {
     	alugardados.clear();
@@ -138,13 +155,30 @@ public class ControleRealizarAluguel implements Initializable{
     		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
     	}
     }
-    
+    //REALIZAR ALUGUEL
+    @FXML
+    void alugar(ActionEvent event) {
+	    	try {
+	        	conecta.conexao();
+	        	PreparedStatement pst = conecta.conn.prepareStatement("insert into alugueis (id_cliente, id_filme, preco_aluguel) values(?,?,?)");
+	        	pst.setInt(1, Integer.parseInt(lblCodCliente.getText()));
+	        	pst.setInt(2, Integer.parseInt(colCodFilme.getText()));
+	        	pst.setFloat(3, Float.parseFloat(lblTotalPreco.getText()));
+	        	pst.executeUpdate();
+	        	JOptionPane.showMessageDialog(null, "Aluguel realizado com sucesso");
+	    	} catch (SQLException ex){
+	    		JOptionPane.showMessageDialog(null,"Erro ao realizar aluguel"+ex);
+    		}
+    	}
+    //VER CLIENTE
     @FXML
     void verCliente(ActionEvent event) {
     	new TelaDois().start(new Stage());
     }
+    //INICIALIZAR COM O NOME DO CLIENTE
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtCliente.setText(dado);
+		lblCodCliente.setText(idCliente);
 	}
 }

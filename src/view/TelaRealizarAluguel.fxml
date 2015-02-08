@@ -37,7 +37,7 @@
       <HBox layoutX="45.0" layoutY="442.0" prefHeight="25.0" prefWidth="535.0" spacing="250.0">
          <children>
             <Button fx:id="buttonvoltar" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="119.0" text="Voltar" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Realizar Alguel" />
+            <Button fx:id="buttonAlugar" mnemonicParsing="false" onAction="#alugar" prefHeight="25.0" prefWidth="135.0" text="Realizar Alguel" />
          </children>
       </HBox>
       <Button fx:id="buttonVerCliente" layoutX="276.0" layoutY="80.0" mnemonicParsing="false" onAction="#verCliente" text="Procurar Clientes" />
@@ -58,11 +58,14 @@
             </TableView>
             <TableView fx:id="tabelaAlugarFilme" prefHeight="224.0" prefWidth="370.0" GridPane.columnIndex="2">
               <columns>
-                <TableColumn fx:id="colFilme" prefWidth="271.0" text="Filme" />
+                  <TableColumn fx:id="colCodFilme" prefWidth="35.0" text="ID" />
+                <TableColumn fx:id="colFilme" minWidth="9.0" prefWidth="236.0" text="Filme" />
                 <TableColumn fx:id="colPreco" minWidth="0.0" prefWidth="76.0" text="Preço" />
               </columns>
             </TableView>
          </children>
       </GridPane>
+      <Label layoutX="405.0" layoutY="57.0" prefHeight="15.0" prefWidth="106.0" text="Código do Cliente:" />
+      <Label fx:id="lblCodCliente" layoutX="405.0" layoutY="84.0" prefHeight="21.0" prefWidth="86.0" />
    </children>
 </Pane>

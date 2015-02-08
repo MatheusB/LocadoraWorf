@@ -86,7 +86,6 @@ public class ControleConsultaCliente {
 				while(conecta.rs.next()){
 					if (conecta.rs.getString("nome_cliente").contains(pesquisa)) {
 						clientedados.add(new Cliente(String.valueOf(conecta.rs.getInt("id_cliente")),conecta.rs.getString("nome_cliente"),conecta.rs.getString("sobre_cliente"), conecta.rs.getString("rua_cliente")));
-		
 						codCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("id"));
 						nomeCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
 						sobreCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("sobreNome"));

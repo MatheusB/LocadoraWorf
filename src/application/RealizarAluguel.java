@@ -1,20 +1,31 @@
 package application;
 
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Alugar {
+public class RealizarAluguel {
+	private StringProperty idFilme;
 	private StringProperty nomeFilmes;
 	private FloatProperty precoFilmes;
 	
-	public Alugar(String nomeFilmes, Float precoFilmes){
+	public RealizarAluguel(String idFilme, String nomeFilmes, Float precoFilmes){
+		this.idFilme = new SimpleStringProperty(idFilme);
 		this.nomeFilmes = new SimpleStringProperty(nomeFilmes);
 		this.precoFilmes = new SimpleFloatProperty(precoFilmes);
 	}
+	
+	public String getidFilme() {
+		return idFilme.get();
+	}
+
+	public void setidFilme(String idFilme) {
+		this.idFilme.set(idFilme);
+	}
+    public StringProperty idFilmeProperty() {
+        return idFilme;
+    }
 
 	public String getNomeFilmes() {
 		return nomeFilmes.get();
@@ -23,6 +34,9 @@ public class Alugar {
 	public void setNomeFilmes(String nomeFilmes) {
 		this.nomeFilmes.set(nomeFilmes);
 	}
+    public StringProperty nomeFilmeProperty() {
+        return nomeFilmes;
+    }
 
 	public Float getPrecoFilmes() {
 		return precoFilmes.get();
@@ -31,4 +45,7 @@ public class Alugar {
 	public void setPrecoFilmes(Float precoFilmes) {
 		this.precoFilmes.set(precoFilmes);
 	}
+    public FloatProperty precoFilmeProperty() {
+        return precoFilmes;
+    }
 }

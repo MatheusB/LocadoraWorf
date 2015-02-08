@@ -26,6 +26,7 @@ public class ControleVerCliente implements Initializable{
 	Main main = new Main();
 	ConectaBanco conecta = new ConectaBanco();
 	static String dado;
+	static String idCliente;
 	static int idclienteFK;
 	private ObservableList<VerCliente> verdados = FXCollections.observableArrayList();
 	
@@ -37,6 +38,9 @@ public class ControleVerCliente implements Initializable{
 
     @FXML
     private TableColumn<VerCliente, String> colNomeCliente;
+    
+    @FXML
+    private TableColumn<VerCliente, String> colCodCliente;
 
     @FXML
     private Button buttonAdicionar;
@@ -55,7 +59,9 @@ public class ControleVerCliente implements Initializable{
     	if (tabelaVer.getSelectionModel().getSelectedItem() != null ){
     		VerCliente c = tabelaVer.getSelectionModel().getSelectedItem();
     		dado = c.getNomeCliente();
+    		idCliente = c.getId();
     	ControleRealizarAluguel.dado = dado;
+    	ControleRealizarAluguel.idCliente = idCliente;
     	main.palco.close();
     	main.iniciarTela("/view/TelaRealizarAluguel.fxml");
     	tela.palco2.close();
@@ -69,7 +75,8 @@ public class ControleVerCliente implements Initializable{
 		conecta.executaSQL("SELECT * FROM clientes");
 		while(conecta.rs.next()){
 			idclienteFK = conecta.rs.getInt("id_cliente");	
-			verdados.add(new VerCliente(conecta.rs.getString("nome_cliente"), conecta.rs.getString("sobre_cliente")));
+			verdados.add(new VerCliente(String.valueOf(conecta.rs.getInt("id_cliente")),conecta.rs.getString("nome_cliente"), conecta.rs.getString("sobre_cliente")));
+			colCodCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("id"));
 			colNomeCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("nomeCliente"));
 			colSobreCliente.setCellValueFactory(new PropertyValueFactory<VerCliente, String>("sobreCliente"));
 			tabelaVer.setItems(verdados);		
