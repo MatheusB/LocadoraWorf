@@ -105,7 +105,6 @@ public class ControleRealizarAluguel implements Initializable{
     		precoFilme = c.getPrecoFilmes();
     		soma = soma + precoFilme;
     		quantidade = quantidade + 1;
-    		
     	}
     	try{
     		conecta.conexao();
@@ -119,7 +118,11 @@ public class ControleRealizarAluguel implements Initializable{
     				tabelaAlugarFilme.setItems(realizar); 			
     			}
     		}
-        	
+//    		conecta.conexao();
+//	          PreparedStatement pst = conecta.conn.prepareStatement("insert into filmes_aluguel (id_filme, id_aluguel) values(?,?)");
+//	          pst.setInt(1, Integer.parseInt(colCodFilme.getText()));
+//	          pst.setInt(2, conecta.rs.last());
+//        	
     	} catch (Exception ex){
     		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
     	}
