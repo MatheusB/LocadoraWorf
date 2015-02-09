@@ -20,13 +20,14 @@
       </Label>
       <TextField fx:id="txtNomeCliente" layoutX="47.0" layoutY="115.0" prefHeight="25.0" prefWidth="361.0" />
       <Button fx:id="buttonPesquisar" layoutX="437.0" layoutY="115.0" mnemonicParsing="false" onAction="#pesquisar" prefHeight="25.0" prefWidth="122.0" text="Pesquisar" />
-      <TableView layoutX="47.0" layoutY="158.0" prefHeight="261.0" prefWidth="514.0">
+      <TableView fx:id="tabelaDevolucao" layoutX="47.0" layoutY="158.0" prefHeight="261.0" prefWidth="514.0">
         <columns>
-          <TableColumn prefWidth="248.0" text="Nome do Cliente" />
-          <TableColumn prefWidth="265.0" text="Nome do Filme" />
+            <TableColumn fx:id="colCodAlugar" prefWidth="93.0" text="ID do Aluguel" />
+          <TableColumn fx:id="colNome" prefWidth="253.0" text="Nome do Cliente" />
+          <TableColumn fx:id="ColPreco" prefWidth="167.0" text="Total a pagar" />
         </columns>
       </TableView>
       <Button fx:id="buttonVoltarDevolucao" layoutX="47.0" layoutY="443.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="122.0" text="Voltar" />
-      <Button layoutX="395.0" layoutY="443.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Realizar Devolução" />
+      <Button fx:id="buttomRealizarDevolucao" layoutX="395.0" layoutY="443.0" mnemonicParsing="false" onAction="#realizarDevolucao" prefHeight="25.0" prefWidth="150.0" text="Realizar Devolução" />
    </children>
 </Pane>

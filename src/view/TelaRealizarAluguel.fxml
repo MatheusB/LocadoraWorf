@@ -67,5 +67,15 @@
       </GridPane>
       <Label layoutX="405.0" layoutY="57.0" prefHeight="15.0" prefWidth="106.0" text="Código do Cliente:" />
       <Label fx:id="lblCodCliente" layoutX="405.0" layoutY="84.0" prefHeight="21.0" prefWidth="86.0" />
+      <Label fx:id="lblquantidade" layoutX="124.0" layoutY="411.0" prefHeight="15.0" prefWidth="65.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="409.0" prefHeight="25.0" prefWidth="98.0" text="Quantidade:">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

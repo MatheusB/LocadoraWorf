@@ -31,10 +31,11 @@ public class ControleRealizarAluguel implements Initializable{
 	String nomeFilme;
 	float precoFilme;
 	float soma = 0;
-	int idfilmeFK;
+	String idfilmeFK;
 	int del;
 	static String dado;
 	static String idCliente;
+	int quantidade = 0;
 
 
     @FXML
@@ -60,6 +61,9 @@ public class ControleRealizarAluguel implements Initializable{
     
     @FXML
     private Label lblTotalPreco;
+    
+    @FXML
+    private Label lblquantidade;
 
     @FXML
     private TableColumn<Alugar, String> colVerFilme;
@@ -96,10 +100,12 @@ public class ControleRealizarAluguel implements Initializable{
     @FXML
     void adicionar(ActionEvent event) {
     	if (tabelaVerFilme.getSelectionModel().getSelectedItem() != null ){
-    		Alugar c = tabelaVerFilme.getSelectionModel().getSelectedItem();
+    	    Alugar c = tabelaVerFilme.getSelectionModel().getSelectedItem();
     		nomeFilme = c.getNomeFilmes();
     		precoFilme = c.getPrecoFilmes();
     		soma = soma + precoFilme;
+    		quantidade = quantidade + 1;
+    		
     	}
     	try{
     		conecta.conexao();
@@ -110,14 +116,17 @@ public class ControleRealizarAluguel implements Initializable{
     				colCodFilme.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("idFilme"));
     				colFilme.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("nomeFilmes"));
     				colPreco.setCellValueFactory(new PropertyValueFactory<RealizarAluguel, String>("precoFilmes"));
-    				tabelaAlugarFilme.setItems(realizar); 		
+    				tabelaAlugarFilme.setItems(realizar); 			
     			}
     		}
+        	
     	} catch (Exception ex){
     		JOptionPane.showMessageDialog(null,"Erro ao mostrar dados"+ex);
     	}
+    	String totalfilmes =String.valueOf(quantidade);
     	String totalpagar =String.valueOf(soma);
     	lblTotalPreco.setText(totalpagar);
+    	lblquantidade.setText(totalfilmes);
     }
     //REMOVER ALGUM FILME DA LISTA 
     @FXML
@@ -129,10 +138,13 @@ public class ControleRealizarAluguel implements Initializable{
 	    	remo = JOptionPane.showConfirmDialog(null, "Deseja realmente remover esse filme?");
 	    	if (remo == JOptionPane.YES_OPTION){
 	        	realizar.remove(c);
-	    		soma = soma - precoFilme;        	
+	    		soma = soma - precoFilme; 
+	    		quantidade = quantidade - 1;
 	    	} 
 	    	String totalpagar =String.valueOf(soma);
 	    	lblTotalPreco.setText(totalpagar);
+	    	String totalfilmes =String.valueOf(quantidade);
+	    	lblquantidade.setText(totalfilmes);
     	}
 
     }
@@ -144,6 +156,7 @@ public class ControleRealizarAluguel implements Initializable{
     	try{
     		conecta.conexao();
     		conecta.executaSQL("SELECT * FROM filmes");
+    		
     		while(conecta.rs.next()){
     			if (conecta.rs.getString("nome_filme").contains(pesquisa)) {
     				alugardados.add(new Alugar(conecta.rs.getString("nome_filme"), conecta.rs.getFloat("preco_filme")));
@@ -158,18 +171,19 @@ public class ControleRealizarAluguel implements Initializable{
     //REALIZAR ALUGUEL
     @FXML
     void alugar(ActionEvent event) {
-	    	try {
-	        	conecta.conexao();
-	        	PreparedStatement pst = conecta.conn.prepareStatement("insert into alugueis (id_cliente, id_filme, preco_aluguel) values(?,?,?)");
-	        	pst.setInt(1, Integer.parseInt(lblCodCliente.getText()));
-	        	pst.setInt(2, Integer.parseInt(colCodFilme.getText()));
-	        	pst.setFloat(3, Float.parseFloat(lblTotalPreco.getText()));
-	        	pst.executeUpdate();
-	        	JOptionPane.showMessageDialog(null, "Aluguel realizado com sucesso");
+    	  try {
+    	          conecta.conexao();
+    	          PreparedStatement pst = conecta.conn.prepareStatement("insert into alu (id_cliente, quantidade, preco) values(?,?,?)");
+    	          pst.setInt(1, Integer.parseInt(lblCodCliente.getText()));
+    	          pst.setInt(2, Integer.parseInt(lblquantidade.getText()));
+    	          pst.setFloat(3, Float.parseFloat(lblTotalPreco.getText()));
+    	          pst.executeUpdate();
+    	          JOptionPane.showMessageDialog(null, "Aluguel realizado com sucesso");
 	    	} catch (SQLException ex){
 	    		JOptionPane.showMessageDialog(null,"Erro ao realizar aluguel"+ex);
     		}
     	}
+    
     //VER CLIENTE
     @FXML
     void verCliente(ActionEvent event) {
